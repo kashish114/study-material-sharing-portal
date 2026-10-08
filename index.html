@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StudyShare - Study Material Sharing Portal</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="app">
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="brand">
+            <div class="logo">📚</div>
+            StudyShare
+        </div>
+
+        <div class="links">
+            <a onclick="go('materials')">Materials</a>
+            <a onclick="go('upload')">Upload</a>
+            <a onclick="go('about')">About</a>
+        </div>
+
+        <div id="authNav">
+            <button class="login" onclick="openLogin()">
+                Student Login
+            </button>
+        </div>
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+
+        <div>
+            <div class="eyebrow">
+                STUDY • SHARE • SUCCEED
+            </div>
+
+            <h1>
+                All your study material, in one place.
+            </h1>
+
+            <p>
+                A simple portal for B.Tech students to discover,
+                share and download notes, question papers,
+                assignments and other academic resources.
+            </p>
+
+            <div class="actions">
+                <button class="primary"
+                        onclick="go('materials')">
+                    Explore Materials
+                </button>
+
+                <button class="secondary"
+                        onclick="go('upload')">
+                    Share Material
+                </button>
+            </div>
+        </div>
+
+
+        <!-- Popular Materials -->
+        <div class="hero-card">
+
+            <strong>Popular Materials</strong>
+
+            <div class="mini">
+                <div class="icon">📄</div>
+
+                <div>
+                    <b>DBMS Unit 1 Notes</b>
+                    <div class="muted">
+                        B.Tech • Semester 5
+                    </div>
+                </div>
+            </div>
+
+            <div class="mini">
+                <div class="icon">📝</div>
+
+                <div>
+                    <b>Web Technology Paper</b>
+                    <div class="muted">
+                        B.Tech • Semester 5
+                    </div>
+                </div>
+            </div>
+
+            <div class="mini">
+                <div class="icon">📘</div>
+
+                <div>
+                    <b>Computer Networks Lab</b>
+                    <div class="muted">
+                        B.Tech • Semester 5
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Statistics -->
+    <div class="stats">
+
+        <div class="stat">
+            <b id="statResources">0</b>
+            <span>Study Resources</span>
+        </div>
+
+        <div class="stat">
+            <b id="statStudents">0</b>
+            <span>Students</span>
+        </div>
+
+        <div class="stat">
+            <b>18</b>
+            <span>Subjects</span>
+        </div>
+
+    </div>
+
+
+    <!-- Materials Section -->
+    <section class="section" id="materials">
+
+        <div class="section-head">
+
+            <div>
+                <h2>Study Materials</h2>
+
+                <div class="muted">
+                    Find resources by subject or semester and download PDF files directly.
+                </div>
+            </div>
+
+
+            <div class="search">
+
+                <input
+                    id="search"
+                    type="text"
+                    placeholder="Search notes, papers..."
+                    oninput="render()"
+                >
+
+                <select id="filter" onchange="render()">
+
+                    <option value="all">
+                        All types
+                    </option>
+
+                    <option value="Notes">
+                        Notes
+                    </option>
+
+                    <option value="Question Paper">
+                        Question Paper
+                    </option>
+
+                    <option value="Assignment">
+                        Assignment
+                    </option>
+
+                    <option value="E-book">
+                        E-book
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="grid" id="grid"></div>
+
+    </section>
+
+
+    <!-- Upload Section -->
+    <section class="section" id="upload">
+
+        <div class="upload">
+
+            <div>
+
+                <div class="eyebrow">
+                    CONTRIBUTE
+                </div>
+
+                <h2>
+                    Share your study material
+                </h2>
+
+                <p class="muted">
+                    Help other students by uploading useful
+                    notes, assignments or question papers.
+                </p>
+
+                <ul class="muted">
+
+                    <li>
+                        Choose a subject and material type
+                    </li>
+
+                    <li>
+                        Select a PDF or document file
+                    </li>
+
+                    <li>
+                        Upload directly to StudyShare server
+                    </li>
+
+                </ul>
+
+                <p class="muted">
+                    <strong>Live Backend Connected:</strong>
+                    Uploaded PDF files are stored on the Node.js server and are immediately downloadable by all students.
+                </p>
+
+            </div>
+
+
+            <div class="form">
+
+                <input
+                    id="title"
+                    placeholder="Material title (e.g. DAA Unit 2 Notes)"
+                >
+
+                <select id="type">
+
+                    <option value="Notes">
+                        Notes
+                    </option>
+
+                    <option value="Question Paper">
+                        Question Paper
+                    </option>
+
+                    <option value="Assignment">
+                        Assignment
+                    </option>
+
+                    <option value="E-book">
+                        E-book
+                    </option>
+
+                </select>
+
+
+                <input
+                    id="subject"
+                    placeholder="Subject / Course (e.g. Web Technology)"
+                >
+
+
+                <input
+                    id="file"
+                    type="file"
+                    accept=".pdf,.doc,.docx,.ppt,.pptx,.txt"
+                >
+
+
+                <textarea
+                    id="desc"
+                    placeholder="Short description of the study material...">
+                </textarea>
+
+
+                <button
+                    class="primary"
+                    onclick="submitMaterial()">
+
+                    Submit & Upload File
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- About -->
+    <section class="section" id="about">
+
+        <div class="card">
+
+            <h2>
+                About StudyShare
+            </h2>
+
+            <p class="muted">
+                StudyShare is a student-focused study material
+                sharing portal designed to make academic resources
+                easier to find, organize, upload, and download.
+                Powered by Express Node.js backend with JWT authentication and file storage.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <span>
+            © 2026 StudyShare
+        </span>
+
+        <span>
+            Study Material Sharing Portal • Fullstack Powered
+        </span>
+
+    </footer>
+
+
+    <!-- Toast Message -->
+    <div
+        class="toast"
+        id="toast">
+    </div>
+
+
+    <!-- Login / Register Modal -->
+    <div
+        id="loginModal"
+        class="modal">
+
+        <div class="card login-box">
+
+            <div class="auth-tabs">
+                <button id="tabLogin" class="auth-tab active" onclick="switchAuthTab('login')">
+                    Student Login
+                </button>
+                <button id="tabRegister" class="auth-tab" onclick="switchAuthTab('register')">
+                    New Registration
+                </button>
+            </div>
+
+            <!-- Login View -->
+            <div id="loginFormView">
+                <p class="muted" style="margin-top: 0;">
+                    Log in with your registered student account.
+                </p>
+
+                <div class="form">
+                    <input
+                        id="loginEmail"
+                        type="email"
+                        placeholder="Email address (e.g. student@studyshare.edu)"
+                    >
+
+                    <input
+                        id="loginPassword"
+                        type="password"
+                        placeholder="Password (e.g. student123)"
+                    >
+
+                    <button
+                        class="primary"
+                        onclick="login()">
+                        Login
+                    </button>
+
+                    <button
+                        class="secondary"
+                        onclick="closeLogin()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+
+            <!-- Register View -->
+            <div id="registerFormView" style="display: none;">
+                <p class="muted" style="margin-top: 0;">
+                    Create a new student account to share materials.
+                </p>
+
+                <div class="form">
+                    <input
+                        id="regName"
+                        type="text"
+                        placeholder="Full Name"
+                    >
+
+                    <input
+                        id="regEmail"
+                        type="email"
+                        placeholder="Email address"
+                    >
+
+                    <input
+                        id="regPassword"
+                        type="password"
+                        placeholder="Password"
+                    >
+
+                    <button
+                        class="primary"
+                        onclick="register()">
+                        Register Account
+                    </button>
+
+                    <button
+                        class="secondary"
+                        onclick="closeLogin()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
